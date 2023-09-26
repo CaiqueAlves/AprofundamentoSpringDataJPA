@@ -1,6 +1,8 @@
 package io.github.CaiqueAlves.localizacao.domain.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,11 +12,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tb_cidade")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cidade {
 
     @Id
     @Column(name = "id_cidade")
-    private final Long id;
+    private Long id;
 
     @Column(name = "nome", length = 50)
     private String nome;
