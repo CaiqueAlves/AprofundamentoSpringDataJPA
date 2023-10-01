@@ -2,7 +2,9 @@ package io.github.CaiqueAlves.localizacao.service;
 
 import io.github.CaiqueAlves.localizacao.domain.entity.Cidade;
 import io.github.CaiqueAlves.localizacao.domain.repository.CidadeRepository;
+import static io.github.CaiqueAlves.localizacao.domain.repository.specs.CidadeSpecs.*;
 import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -49,5 +51,12 @@ public class CidadeService {
                 .withStringMatcher(ExampleMatcher.StringMatcher.STARTING);
         Example<Cidade> example = Example.of(cidade, matcher);
         return repository.findAll(example);
+    }
+
+
+    public void listarCidadesByNomeSpec(){
+        repository
+                .findAll(nomeEqual("São Paulo").and(habitantesGreaterThan(1000)))
+                .forEach(System.out::println);
     }
 }
