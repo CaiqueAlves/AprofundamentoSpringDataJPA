@@ -18,3 +18,4 @@ insert into tb_cidade
      (9, 'Recife', 23234780),
      (11, 'Brasilia', 12123132)
     ;
+

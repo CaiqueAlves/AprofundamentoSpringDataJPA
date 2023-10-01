@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.transaction.Transactional;
 
-@SpringBootApplication
+@SpringBootApplication 
 public class LocalizacaoApplication implements CommandLineRunner {
 
 	@Autowired
@@ -22,8 +22,7 @@ public class LocalizacaoApplication implements CommandLineRunner {
 	}
 
 	void listarCidadesPorNome(){
-		//cidadeRepository.findByNome("Porto Velho").forEach(System.out::println);
-		cidadeRepository.findByNomeContaining("a").forEach(System.out::println);
+		cidadeRepository.findByNomeLike("%porto%").forEach(System.out::println);
 	}
 
 	void listarCidadesPorHabitantes(){
