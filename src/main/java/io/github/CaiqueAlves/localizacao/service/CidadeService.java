@@ -6,6 +6,7 @@ import static io.github.CaiqueAlves.localizacao.domain.repository.specs.CidadeSp
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -56,7 +57,25 @@ public class CidadeService {
 
     public void listarCidadesByNomeSpec(){
         repository
-                .findAll(nomeEqual("São Paulo").and(habitantesGreaterThan(1000)))
+                .findAll(propertyEqual("nome","São Paulo").and(idEqual(1L)))
                 .forEach(System.out::println);
+    }
+
+    public void listarCidadesSpecsFiltroDinamico(Cidade filtro){
+        Specification<Cidade> specs = Specification.where((root, query, cb) -> cb.conjunction());
+
+        if(filtro.getId() != null){
+            specs = specs.and(idEqual(filtro.getId()));
+        }
+
+        if(StringUtils.hasText(filtro.getNome())){
+            specs = specs.and(nomeLike(filtro.getNome()));
+        }
+
+        if(filtro.getHabitantes() != null){
+            specs = specs.and(habitantesGreaterThan(filtro.getHabitantes()));
+        }
+
+        repository.findAll(specs).forEach(System.out::println);
     }
 }
