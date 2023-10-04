@@ -24,8 +24,14 @@ public class CidadeService {
         repository.findByHabitantesLessThanEqualAndNomeLike(700000L, "%Salva%").forEach(System.out::println);
     }
 
+    public void listarCidadesPorNomeSQL(){
+        repository.findByNomeSqlNativo("São Paulo")
+                .stream().map(cidadeProjection -> new Cidade(cidadeProjection.getId(), cidadeProjection.getNome(), null))
+                .forEach(System.out::println);
+    }
+
     public void listarCidadesPorNome(){
-        Pageable pageable = PageRequest.of(2, 3);
+        Pageable pageable = PageRequest.of(2, 2);
         repository
                 .findByNomeLike("%%%", pageable)
                 .forEach(System.out::println);
